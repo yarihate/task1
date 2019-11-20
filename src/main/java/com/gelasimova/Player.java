@@ -50,7 +50,7 @@ class Player {
         while (availableMoves.isEmpty());
         System.out.println(activePiece + " on " + activePiece.getCoordinate() + " was chosen.");
         Collections.shuffle(availableMoves);
-        //for(checkAvailableMoves)if (canBeatEnemyPiece) make move
+        //can add - for(checkAvailableMoves)if (canBeatEnemyPiece) make move
         activePiece.move(availableMoves.get(0), board);
         board.showTheBoard();
     }
