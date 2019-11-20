@@ -1,10 +1,14 @@
-package com.gelasimova;
+package main.java.com.gelasimova;
 import java.util.*;
 
 class Board {
-    ArrayList<Space> board = new ArrayList<>();
+    private ArrayList<Space> board = new ArrayList<>();
 
-    Board() {
+    public ArrayList<Space> getBoard(){
+        return board;
+    }
+
+    public Board() {
         for (int x = 1; x <= 8; x++) {
             for (char y = 'a'; y <= 'h'; y++) {
                 Space space = new Space(x, y);
@@ -43,7 +47,7 @@ class Board {
         }
     }
 
-    void showTheBoard() {
+    public void showTheBoard() {
         for (int i = 0; i < board.size(); i++) {
             if (i == 8 || i == 16 || i == 24 || i == 32 || i == 40 || i == 48 || i == 56) {
                 System.out.println();

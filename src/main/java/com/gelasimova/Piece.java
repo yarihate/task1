@@ -1,24 +1,24 @@
-package com.gelasimova;
+package main.java.com.gelasimova;
 import java.util.*;
 
 public abstract class Piece {
     private Colour colour;
     private Space currentSpace;
     private Player player;
-    Space candidateSpace;
-    ArrayList<Space> availableSpaces = new ArrayList<>();
-    boolean cannotMoveFurther = false;
+    protected Space candidateSpace;
+    protected ArrayList<Space> availableSpaces = new ArrayList<>();
+    protected boolean cannotMoveFurther = false;
 
-    Piece(Colour colour, Space space) {
+    public Piece(Colour colour, Space space) {
         this.colour = colour;
         this.currentSpace = space;
     }
 
-    Colour getColour() {
+    public Colour getColour() {
         return colour;
     }
 
-    void setPlayer(Player player) {
+    public void setPlayer(Player player) {
         this.player = player;
     }
 
@@ -26,15 +26,15 @@ public abstract class Piece {
         this.currentSpace = currentSpace;
     }
 
-    int getCurrentX() {
-        return currentSpace.spaceGetX();
-    }
+    protected int getCurrentX() {
+        return currentSpace.getX();
+    } //public?
 
-    char getCurrentY() {
-        return currentSpace.spaceGetY();
-    }
+    protected char getCurrentY() {
+        return currentSpace.getY();
+    } //public?
 
-    String getCoordinate() {
+    public String getCoordinates() {
         return getCurrentX() + "" + getCurrentY();
     }
 
@@ -43,11 +43,11 @@ public abstract class Piece {
         return getClass().getSimpleName() + "-" + colour;
     }
 
-    abstract ArrayList<Space> checkAvailableMoves(Board board);
+    public abstract ArrayList<Space> getAvailableMoves(Board board);
 
-    Space findCandidateSpaceOnTheBoard(Space candidateSpace, Board board) {
+    protected Space findCandidateSpaceOnTheBoard(Space candidateSpace, Board board) {
         if (candidateSpace.isSpaceOnTheBoard()) {
-            for (Space spaceOnTheBoard : board.board) {
+            for (Space spaceOnTheBoard : board.getBoard()) {
                 if (spaceOnTheBoard.equals(candidateSpace)) {
                     return spaceOnTheBoard;
                 }
@@ -56,7 +56,7 @@ public abstract class Piece {
         return null;
     }
 
-    void addIfMoveIsAvailable(Space candidateSpace, Board board) {
+    protected void addIfMoveIsAvailable(Space candidateSpace, Board board) {
         candidateSpace = findCandidateSpaceOnTheBoard(candidateSpace, board);
         if (candidateSpace != null) {
             if (candidateSpace.getPiece() == null) {
@@ -68,12 +68,12 @@ public abstract class Piece {
         }
     }
 
-    void move(Space availableSpace, Board board) {
+    protected void move(Space availableSpace, Board board) {
         Piece enemyPiece = availableSpace.getPiece();
         if (enemyPiece != null) {
-            System.out.println(enemyPiece + " " + enemyPiece.getCoordinate() + " was beaten.");
-            enemyPiece.player.listOfPieces.remove(enemyPiece);
-        } else System.out.println(this + " moves on " + availableSpace.spaceCoordinate());
+            System.out.println(enemyPiece + " " + enemyPiece.getCoordinates() + " was beaten.");
+            enemyPiece.player.getListOfPieces().remove(enemyPiece);
+        } else System.out.println(this + " moves on " + availableSpace.getSpaceCoordinates());
         currentSpace = findCandidateSpaceOnTheBoard(currentSpace, board);
         this.currentSpace.setPiece(null);
         availableSpace.setPiece(this);
@@ -87,7 +87,7 @@ class Pawn extends Piece {
     }
 
     @Override
-    ArrayList<Space> checkAvailableMoves(Board board) {
+    public ArrayList<Space> getAvailableMoves(Board board) {
         availableSpaces = new ArrayList<>();
         ArrayList<Space> candidateSpaces;
         if (getColour() == Colour.BLACK) {
@@ -125,7 +125,7 @@ class Rook extends Piece {
     }
 
     @Override
-    ArrayList<Space> checkAvailableMoves(Board board) {
+    public ArrayList<Space> getAvailableMoves(Board board) {
         availableSpaces = new ArrayList<>();
         //←
         for (char y = (char) (getCurrentY() - 1); y >= 'a'; y--) {
@@ -168,7 +168,7 @@ class Knight extends Piece {
     }
 
     @Override
-    ArrayList<Space> checkAvailableMoves(Board board) {
+    public ArrayList<Space> getAvailableMoves(Board board) {
         availableSpaces = new ArrayList<>();
         ArrayList<Space> candidateSpaces = new ArrayList<>(Arrays.asList(
                 new Space(getCurrentX() - 1, (char) (getCurrentY() + 2)),
@@ -190,7 +190,7 @@ class Bishop extends Piece {
     }
 
     @Override
-    ArrayList<Space> checkAvailableMoves(Board board) {
+    public ArrayList<Space> getAvailableMoves(Board board) {
         availableSpaces = new ArrayList<>();
         //←↓
         for (int x = getCurrentX() - 1; x >= 1; x--) {
@@ -237,7 +237,7 @@ class Queen extends Piece {
     }
 
     @Override
-    ArrayList<Space> checkAvailableMoves(Board board) {
+    public ArrayList<Space> getAvailableMoves(Board board) {
         availableSpaces = new ArrayList<>();
         //←
         for (char y = (char) (getCurrentY() - 1); y >= 'a'; y--) {
@@ -316,7 +316,7 @@ class King extends Piece {
     }
 
     @Override
-    ArrayList<Space> checkAvailableMoves(Board board) {
+    public ArrayList<Space> getAvailableMoves(Board board) {
         availableSpaces = new ArrayList<>();
         for (int x = getCurrentX() - 1; x <= getCurrentX() + 1; x++) {
             for (char y = (char) (getCurrentY() - 1); y <= (char) (getCurrentY() + 1); y++) {

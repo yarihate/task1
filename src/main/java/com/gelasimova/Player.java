@@ -1,25 +1,29 @@
-package com.gelasimova;
+package main.java.com.gelasimova;
 import java.util.*;
 
 class Player {
-    ArrayList<Piece> listOfPieces = new ArrayList<>();
+    private ArrayList<Piece> listOfPieces = new ArrayList<>();
 
-    void takeBlackPieces(Board b) {
-        for (int i = 0; i < b.board.size(); i++) {
+    public ArrayList<Piece> getListOfPieces(){
+        return listOfPieces;
+    }
+
+    public void takeBlackPieces(Board b) {
+        for (int i = 0; i < b.getBoard().size(); i++) {
             if (i <= 15) {
                 //Piece also has a Player variable
-                b.board.get(i).getPiece().setPlayer(this);
-                listOfPieces.add(b.board.get(i).getPiece());
+                b.getBoard().get(i).getPiece().setPlayer(this);
+                listOfPieces.add(b.getBoard().get(i).getPiece());
             }
         }
     }
 
-    void takeWhitePieces(Board b) {
-        for (int i = 0; i < b.board.size(); i++) {
+    public void takeWhitePieces(Board b) {
+        for (int i = 0; i < b.getBoard().size(); i++) {
             if (i > 47) {
                 //Piece also has a Player variable
-                b.board.get(i).getPiece().setPlayer(this);
-                listOfPieces.add(b.board.get(i).getPiece());
+                b.getBoard().get(i).getPiece().setPlayer(this);
+                listOfPieces.add(b.getBoard().get(i).getPiece());
             }
         }
     }
@@ -29,26 +33,26 @@ class Player {
         return listOfPieces.get(0);
     }
 
-    boolean hasAnyAvailableMoves(Board board) {
+    public boolean hasAnyAvailableMoves(Board board) {
         for (Piece piece : listOfPieces) {
-            if (!piece.checkAvailableMoves(board).isEmpty()) {
+            if (!piece.getAvailableMoves(board).isEmpty()) {
                 return true;
             }
         }
         return false;
     }
 
-    void makeMove(Board board) {
+    public void makeMove(Board board) {
         Piece activePiece;
         ArrayList<Space> availableMoves;
         //makeMove is called after hasAnyAvailableMoves returns true in ChessMatch.playChess method
         do {
             activePiece = choosePiece();
             //checkAvailableMoves abstract method of Piece class
-            availableMoves = activePiece.checkAvailableMoves(board);
+            availableMoves = activePiece.getAvailableMoves(board);
         }
         while (availableMoves.isEmpty());
-        System.out.println(activePiece + " on " + activePiece.getCoordinate() + " was chosen.");
+        System.out.println(activePiece + " on " + activePiece.getCoordinates() + " was chosen.");
         Collections.shuffle(availableMoves);
         //can add - for(checkAvailableMoves)if (canBeatEnemyPiece) make move
         activePiece.move(availableMoves.get(0), board);

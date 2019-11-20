@@ -1,4 +1,4 @@
-package com.gelasimova;
+package main.java.com.gelasimova;
 public class ChessMatch {
     public static void main(String[] args)  {
         Player player1 = new Player();
@@ -14,7 +14,7 @@ public class ChessMatch {
 
     private static void playChess(Player player1, Player player2, Board board) {
         while (true) {
-            if (player1.listOfPieces.isEmpty()) {
+            if (player1.getListOfPieces().isEmpty()) {
                 System.out.println("Black wins. Game over");
                 break;
             } else if (player1.hasAnyAvailableMoves(board)) {
@@ -23,7 +23,7 @@ public class ChessMatch {
                 System.out.println("White has no available moves. Black wins. Game over");
                 break;
             }
-            if (player2.listOfPieces.isEmpty()) {
+            if (player2.getListOfPieces().isEmpty()) {
                 System.out.println("White wins. Game over");
                 break;
             } else if (player2.hasAnyAvailableMoves(board)) {
@@ -33,7 +33,7 @@ public class ChessMatch {
                 break;
             }
         }
-        System.out.println(player1.listOfPieces);
-        System.out.println(player2.listOfPieces);
+        System.out.println(player1.getListOfPieces());
+        System.out.println(player2.getListOfPieces());
     }
 }

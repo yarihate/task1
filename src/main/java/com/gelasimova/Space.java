@@ -1,38 +1,38 @@
-package com.gelasimova;
+package main.java.com.gelasimova;
 
 public class Space {
     private int x;
     private char y;
     private Piece piece;
 
-    Space(int x, char y) {
+    public Space(int x, char y) {
         this.x = x;
         this.y = y;
     }
 
-    void setPiece(Piece piece) {
+    public void setPiece(Piece piece) {
         this.piece = piece;
     }
 
-    Piece getPiece() {
+    public Piece getPiece() {
         return piece;
     }
 
-    int spaceGetX() {
+    public int getX() {
         return x;
     }
 
-    char spaceGetY() {
+    public char getY() {
         return y;
     }
 
-    String spaceCoordinate() {
+    public String getSpaceCoordinates() {
         return x + "" + y;
     }
 
-    boolean isSpaceOnTheBoard() {
-        int x = spaceGetX();
-        char y = spaceGetY();
+    public boolean isSpaceOnTheBoard() {
+        int x = getX();
+        char y = getY();
         return (x >= 1 && x <= 8) && (y >= 'a' && y <= 'h');
     }
 
@@ -45,6 +45,6 @@ public class Space {
             return false;
         }
         Space s = (Space) o;
-        return (this.spaceGetX() == s.spaceGetX() && this.spaceGetY() == s.spaceGetY());
+        return (this.getX() == s.getX() && this.getY() == s.getY());
     }
 }
