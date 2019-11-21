@@ -7,7 +7,6 @@ public class ChessMatch {
 
         player1.takeWhitePieces(board);
         player2.takeBlackPieces(board);
-
         playChess(player1, player2, board);
 
     }

@@ -1,0 +1,5 @@
+# folder target
+target/
+
+# txt files ignore
+#docs/*.txt
