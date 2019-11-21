@@ -1,10 +1,11 @@
 package main.java.com.gelasimova;
+
 import java.util.*;
 
 class Board {
     private ArrayList<Space> board = new ArrayList<>();
 
-    public ArrayList<Space> getBoard(){
+    public ArrayList<Space> getBoard() {
         return board;
     }
 
@@ -61,11 +62,50 @@ class Board {
             System.out.print(" |");
         }
         System.out.println();
-        try {
-            Thread.sleep(3000);
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        }catch (Exception e){
-            e.printStackTrace();
+
+        switch (Board.getOS()) {
+            case "win": {
+                try {
+                    Thread.sleep(3000);
+                    new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+                    break;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case "lin": {
+                try {
+                    Thread.sleep(3000);
+                    Runtime.getRuntime().exec("/bin/bash -c clear").waitFor();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case  "mac": {
+                try {
+                    Thread.sleep(3000);
+                    Runtime.getRuntime().exec("/bin/bash -c clear").waitFor();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+                break;
         }
+            default:{
+                break;
+            }
+    }
+}
+
+    private static String getOS() {
+        String OS = System.getProperty("os.name").toLowerCase();
+        if (OS.contains("windows")) {
+            return "win";
+        } else if (OS.contains("linux")) {
+            return "lin";
+        } else if (OS.contains("mac")) {
+            return "mac";
+        } else return null;
     }
 }
