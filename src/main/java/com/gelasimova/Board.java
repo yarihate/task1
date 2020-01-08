@@ -62,41 +62,21 @@ class Board {
             System.out.print(" |");
         }
         System.out.println();
-
-        switch (Board.getOS()) {
-            case "win": {
-                try {
-                    Thread.sleep(3000);
+        try {
+            Thread.sleep(3000);
+            switch (getOS()) {
+                case "win":
                     new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
                     break;
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                break;
+                case "mac":
+                case "lin":
+                    new ProcessBuilder("/bin/bash", "-c", "clear").inheritIO().start().waitFor();
+                    break;
             }
-            case "lin": {
-                try {
-                    Thread.sleep(3000);
-                    Runtime.getRuntime().exec("/bin/bash -c clear").waitFor();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                break;
-            }
-            case  "mac": {
-                try {
-                    Thread.sleep(3000);
-                    Runtime.getRuntime().exec("/bin/bash -c clear").waitFor();
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                break;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-            default:{
-                break;
-            }
     }
-}
 
     private static String getOS() {
         String OS = System.getProperty("os.name").toLowerCase();

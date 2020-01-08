@@ -1,4 +1,8 @@
 package main.java.com.gelasimova;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 public class ChessMatch {
     public static void main(String[] args)  {
         Player player1 = new Player();
