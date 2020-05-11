@@ -1,4 +1,4 @@
-package main.java.com.gelasimova;
+package com.gelasimova;
 
 import java.util.*;
 
